@@ -1,2 +1,2 @@
-{"name" : "飪國"}
-{"name" : "飪國", "symbol" : "DB", "web_site" : "www.douban.com", "login_symbol" : [{"name" : "username", "content" : "duxin"}, {"name" : "mobile_phone", "content" : "18665005621"}], "password":[{"type" : "login_password", "content" : "123456"}, {"type" : "pay_password", "content" : "18665005621"}]}
+{"name" : "豆瓣"}
+{"name" : "豆瓣", "symbol" : "DB", "web_site" : "www.douban.com", "login_symbol" : [{"name" : "username", "content" : "duxin"}, {"name" : "mobile_phone", "content" : "18665005621"}], "password":[{"type" : "login_password", "content" : "123456"}, {"type" : "pay_password", "content" : "18665005621"}]}
