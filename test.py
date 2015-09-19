@@ -71,10 +71,10 @@ class DataHandler(object):
 				print text[key]
 
 def test():
-	json = DataHandler("D:\\Code\\AccountManager\\test.txt")
-	condition = {"name" : str("豆瓣").decode("utf-8"), "symbol" : str("DB").decode("utf-8")}
-	result = json.search(condition)
-	print result
+	#json = DataHandler("D:\\Code\\AccountManager\\test.txt")
+	#condition = {"name" : str("豆瓣").decode("utf-8"), "symbol" : str("DB").decode("utf-8")}
+	#result = json.search(condition)
+	#print result
 
 if __name__ == '__main__':
 	test()
