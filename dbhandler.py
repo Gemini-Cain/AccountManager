@@ -7,7 +7,7 @@ import json
 class DBHandler(object):
 	"""Json处理"""
 	def __init__(self, file):
-		super(DataHandler, self).__init__()
+		super(DBHandler, self).__init__()
 		self.file = file
 	
 	def __read_json_file__(self):
@@ -16,8 +16,11 @@ class DBHandler(object):
 			print line.decode("utf-8").encode("gbk")
 			text = json.loads(line)
 			for key in text.keys():
-				if text[key]:
-					pass
+				if isinstance(text[key], list):
+					for item in text[key]:
+						print type(item)
+						print item
+				print type(text[key])
 				print "[" + key + "]"
 				print text[key]
  	
@@ -70,8 +73,20 @@ class DBHandler(object):
 				print "[" + key + "]"
 				print text[key]
 
+	def __is_exist__(self, key):
+		'判断key值数据是否已经存在'
+		file = open(self.file, "r")
+		while True:
+			line = file.readline()
+			if line is None:
+				break;
+			for key in line:
+				pass
+			json_to_python = json.loads(line)
+
 def test():
-	#json = DataHandler("D:\\Code\\AccountManager\\test.txt")
+	json = DBHandler("D:\\Code\\AccountManager\\test.txt")
+	json.__read_json_file__()
 	#condition = {"name" : str("豆瓣").decode("utf-8"), "symbol" : str("DB").decode("utf-8")}
 	#result = json.search(condition)
 	#print result
