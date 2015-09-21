@@ -4,13 +4,13 @@
 
 import json
 
-class DataHandler(object):
+class DBHandler(object):
 	"""Json处理"""
 	def __init__(self, file):
 		super(DataHandler, self).__init__()
 		self.file = file
 	
-	def __readJsonFile__(self):
+	def __read_json_file__(self):
 		for line in open(self.file):
 			#line = line.decode("gbk").encode("utf-8")
 			print line.decode("utf-8").encode("gbk")
@@ -25,7 +25,7 @@ class DataHandler(object):
 		for line in open(self.file):
 			#line = line.decode("gbk").encode("utf-8")
 			print line.decode("utf-8").encode("gbk")
-			text = json.loads(line)
+			text = json.dumps(line)
 			for key in text.keys():
 				if text[key]:
 					pass
