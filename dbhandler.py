@@ -62,27 +62,27 @@ class DBHandler(object):
 
 		return result
 
-	def insert(self, key, content):
-		for line in open(self.file):
-			#line = line.decode("gbk").encode("utf-8")
-			print line.decode("utf-8").encode("utf-8")
-			text = json.loads(line)
-			for key in text.keys():
-				if text[key]:
-					pass
-				print "[" + key + "]"
-				print text[key]
+	def insert(self, content):
+		file = open(self.file, "a")
+		line = json.dumps(content)
+		file.write(line)
 
-	def __is_exist__(self, key):
+	def is_exist(self, condition):
 		'判断key值数据是否已经存在'
 		file = open(self.file, "r")
 		while True:
 			line = file.readline()
 			if line is None:
 				break;
-			for key in line:
-				pass
-			json_to_python = json.loads(line)
+			print line
+			line = json.loads(line)
+			print line
+			for key in condition:
+				if key in line and line[key] == condition[key]:
+					return True
+		
+		return False
+				
 
 def test():
 	json = DBHandler("D:\\Code\\AccountManager\\test.txt")

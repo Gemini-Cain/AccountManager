@@ -5,7 +5,7 @@
 
 class Account(object):
 	"""账户信息"""
-	def __init__(self, name, sign, website, login_name = {}, password = {}, tag = []):
+	def __init__(self, name, sign, website, login_name = [], password = [], tag = []):
 		super(Account, self).__init__()
 		self.__name = name
 		self.__sign = sign
