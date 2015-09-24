@@ -31,9 +31,10 @@ class AccountManager(object):
 
 
 	def search_account(self, condition):
-		pass
-		
-			
+		for key in condition:
+			if condition[key] is None or condition[key] == [] or condition[key] == "":
+				del condition[key]
+		return self.handler.search(condition)
 
 	def delete_account(self):
 		pass
@@ -43,8 +44,28 @@ class AccountManager(object):
 
 def test():
 	manager = AccountManager()
-	ac = account.Account(str("豆瓣").decode("utf-8"), "DB", "www.douban.com", [{"type" : "username", "content" : "duxin"}, {"type" : "mobile_phone", "content" : "18665005621"}], [{"type" : "login_password", "content" : "123456"}, {"type" : "pay_password", "content" : "18665005621"}], ["hot", "interesting"])
-	manager.add_account(ac)
+	#ac = account.Account(str("豆瓣").decode("utf-8"), "DB", "www.douban.com", [{"type" : "username", "content" : "duxin"}, {"type" : "mobile_phone", "content" : "18665005621"}], [{"type" : "login_password", "content" : "123456"}, {"type" : "pay_password", "content" : "18665005621"}], ["hot", "interesting"])
+	#manager.add_account(ac)
+
+	result = manager.search_account({"name":str("豆瓣").decode("utf-8")})
+	for item in result:
+		print item
+
+	result = manager.search_account({"sign":"DB"})
+	for item in result:
+		print item
+
+	result = manager.search_account({"website":"www.douban.com"})
+	for item in result:
+		print item
+
+	result = manager.search_account({"tag":["hot", "interesting"]})
+	for item in result:
+		print item
+
+	result = manager.search_account({"sign":"DB", "tag":["hot"]})
+	for item in result:
+		print item
 
 if __name__ == '__main__':
 	test()

@@ -38,24 +38,34 @@ class DBHandler(object):
 	def search(self, condition):
 		result = []
 		file = open(self.file)
-		for line in file.readline():
+		while True:
+			line = file.readline()
+			if not line:
+				break
 			is_match = True
-			line = line.decode("utf-8").encode("utf-8")
+			#line = line.decode("utf-8")
+			print line
 			text = json.loads(line)
 			for key in condition:
 				if key in text:
-					if isinstance(text[key], (list, dict, tuple))
-						for x in xrange(1,10):
-							pass
-						text[key] == condition[key]:
+					print text[key]
+					print isinstance(text[key], str)
+					if isinstance(text[key], str):
+						if text[key] == condition[key]:
 						 	pass
-
-						 
-
-					pass
+						else:
+							is_match = False
+					elif isinstance(text[key], list):
+						for item in condition[key]:
+							if item in text[key]:
+								pass
+							else:
+								is_match = False
+								break
+					else:
+						raise TypeError
 				else:
-					is_match = False
-					break
+					raise KeyError
 			if is_match == True:
 				result.append(text)
 		return result
@@ -68,7 +78,7 @@ class DBHandler(object):
 
 	def is_exist(self, condition):
 		'判断key值数据是否已经存在'
-		file = open(self.file, "r")
+		file = open(self.file)
 		while True:
 			line = file.readline()
 			if not line:
