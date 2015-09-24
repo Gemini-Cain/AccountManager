@@ -1,2 +1,3 @@
 {"name" : "豆瓣"}
 {"name" : "豆瓣", "sign" : "DB2", "web_site" : "www.douban.com", "tag" : ["hot", "interesting"], "login_name" : [{"type" : "username", "content" : "duxin"}, {"type" : "mobile_phone", "content" : "18665005621"}], "password" : [{"type" : "login_password", "content" : "123456"}, {"type" : "pay_password", "content" : "18665005621"}]}
+{"website": "www.douban.com", "name": "\u8c46\u74e3", "sign": "DB", "tag": ["hot", "interesting"], "password": [{"content": "123456", "type": "login_password"}, {"content": "18665005621", "type": "pay_password"}], "login_name": [{"content": "duxin", "type": "username"}, {"content": "18665005621", "type": "mobile_phone"}]}

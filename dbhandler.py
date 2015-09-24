@@ -36,35 +36,34 @@ class DBHandler(object):
 				print text[key]
 
 	def search(self, condition):
-		result = None
-		flag = True
-		for line in open(self.file):
-			flag = True
-			#print line.decode("utf-8").encode("gbk")
+		result = []
+		file = open(self.file)
+		for line in file.readline():
+			is_match = True
 			line = line.decode("utf-8").encode("utf-8")
 			text = json.loads(line)
-			for key in condition.keys():
-				print key
-				if key in text.keys():
-					print text[key]
-				else:
-					flag = False
-					break
-				print condition[key]
-				if text[key] == condition[key]:
+			for key in condition:
+				if key in text:
+					if isinstance(text[key], (list, dict, tuple))
+						for x in xrange(1,10):
+							pass
+						text[key] == condition[key]:
+						 	pass
+
+						 
+
 					pass
 				else:
-					flag = False
+					is_match = False
 					break
-			if flag == True:
-				result = text
-				break
-
+			if is_match == True:
+				result.append(text)
 		return result
 
 	def insert(self, content):
 		file = open(self.file, "a")
 		line = json.dumps(content)
+		print line
 		file.write(line)
 
 	def is_exist(self, condition):
@@ -72,13 +71,13 @@ class DBHandler(object):
 		file = open(self.file, "r")
 		while True:
 			line = file.readline()
-			if line is None:
+			if not line:
 				break;
 			print line
-			line = json.loads(line)
-			print line
+			text = json.loads(line)
+			print text
 			for key in condition:
-				if key in line and line[key] == condition[key]:
+				if key in text and text[key] == condition[key]:
 					return True
 		
 		return False
