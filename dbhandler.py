@@ -43,14 +43,10 @@ class DBHandler(object):
 			if not line:
 				break
 			is_match = True
-			#line = line.decode("utf-8")
-			print line
 			text = json.loads(line)
 			for key in condition:
 				if key in text:
-					print text[key]
-					print isinstance(text[key], str)
-					if isinstance(text[key], str):
+					if isinstance(text[key], (str, unicode)):
 						if text[key] == condition[key]:
 						 	pass
 						else:

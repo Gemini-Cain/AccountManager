@@ -34,7 +34,12 @@ class AccountManager(object):
 		for key in condition:
 			if condition[key] is None or condition[key] == [] or condition[key] == "":
 				del condition[key]
-		return self.handler.search(condition)
+		result = []
+		for item in self.handler.search(condition):
+			result.append(account.Account(item["name"], item["sign"]), item["website"], item["login_name"], item["password"], item["tag"])
+
+		return result
+
 
 	def delete_account(self):
 		pass
@@ -48,22 +53,27 @@ def test():
 	#manager.add_account(ac)
 
 	result = manager.search_account({"name":str("豆瓣").decode("utf-8")})
+	print str("----------根据名称查询----------").decode("utf-8")
 	for item in result:
 		print item
 
 	result = manager.search_account({"sign":"DB"})
+	print str("----------根据符号查询----------").decode("utf-8")
 	for item in result:
 		print item
 
 	result = manager.search_account({"website":"www.douban.com"})
+	print str("-----------根据网站查询----------").decode("utf-8")
 	for item in result:
 		print item
 
 	result = manager.search_account({"tag":["hot", "interesting"]})
+	print str("----------根据标签查询----------").decode("utf-8")
 	for item in result:
 		print item
 
 	result = manager.search_account({"sign":"DB", "tag":["hot"]})
+	print str("----------复合条件查询----------").decode("utf-8")
 	for item in result:
 		print item
 
