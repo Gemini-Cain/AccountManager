@@ -5,7 +5,7 @@
 
 class Account(object):
 	"""账户信息"""
-	def __init__(self, name, sign, website, login_name = [], password = [], tag = []):
+	def __init__(self, name, sign, website, login_name = {}, password = {}, tag = []):
 		super(Account, self).__init__()
 		self.__name = name
 		self.__sign = sign
@@ -37,7 +37,7 @@ class Account(object):
 
 	def set_login_name(self, login_name):
 		self.__login_name.clear()
-		for key in login_name:
+		for key in login_name.keys():
 			self.__login_name[key] = login_name[key]
 
 	def get_password(self):
@@ -45,7 +45,7 @@ class Account(object):
 
 	def set_password(self, password):
 		self.__password.clear()
-		for key in password:
+		for key in password.keys():
 			self.__password[key] = password[key]
 
 	def get_tag(self):

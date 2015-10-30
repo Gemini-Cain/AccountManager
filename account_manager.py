@@ -36,7 +36,7 @@ class AccountManager(object):
 				del condition[key]
 		result = []
 		for item in self.handler.search(condition):
-			result.append(account.Account(item["name"], item["sign"]), item["website"], item["login_name"], item["password"], item["tag"])
+			result.append(account.Account(item["name"], item["sign"], item["website"], item["login_name"], item["password"], item["tag"]))
 
 		return result
 
@@ -49,33 +49,33 @@ class AccountManager(object):
 
 def test():
 	manager = AccountManager()
-	#ac = account.Account(str("豆瓣").decode("utf-8"), "DB", "www.douban.com", [{"type" : "username", "content" : "duxin"}, {"type" : "mobile_phone", "content" : "18665005621"}], [{"type" : "login_password", "content" : "123456"}, {"type" : "pay_password", "content" : "18665005621"}], ["hot", "interesting"])
+	#ac = account.Account(str("豆瓣").decode("utf-8"), "DB", "www.douban.com", {"username" : "duxin", "mobile_phone" : "18665005621"}, {"login_password" : "123456", "pay_password" : "18665005621"}, ["hot", "interesting"])
 	#manager.add_account(ac)
 
 	result = manager.search_account({"name":str("豆瓣").decode("utf-8")})
 	print str("----------根据名称查询----------").decode("utf-8")
 	for item in result:
-		print item
+		item.show_account()
 
 	result = manager.search_account({"sign":"DB"})
 	print str("----------根据符号查询----------").decode("utf-8")
 	for item in result:
-		print item
+		item.show_account()
 
 	result = manager.search_account({"website":"www.douban.com"})
 	print str("-----------根据网站查询----------").decode("utf-8")
 	for item in result:
-		print item
+		item.show_account()
 
 	result = manager.search_account({"tag":["hot", "interesting"]})
 	print str("----------根据标签查询----------").decode("utf-8")
 	for item in result:
-		print item
+		item.show_account()
 
 	result = manager.search_account({"sign":"DB", "tag":["hot"]})
 	print str("----------复合条件查询----------").decode("utf-8")
 	for item in result:
-		print item
+		item.show_account()
 
 if __name__ == '__main__':
 	test()
