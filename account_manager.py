@@ -49,7 +49,7 @@ class AccountManager(object):
 
 def test():
 	manager = AccountManager()
-	#ac = account.Account(str("豆瓣").decode("utf-8"), "DB", "www.douban.com", {"username" : "duxin", "mobile_phone" : "18665005621"}, {"login_password" : "123456", "pay_password" : "18665005621"}, ["hot", "interesting"])
+	#ac = account.Account(str("豆瓣").decode("utf-8"), "DB2", "www.douban.com", {"username" : "duxin", "mobile_phone" : "18665005621"}, {"login_password" : "123456", "pay_password" : "18665005621"}, ["hot", "interesting"])
 	#manager.add_account(ac)
 
 	result = manager.search_account({"name":str("豆瓣").decode("utf-8")})

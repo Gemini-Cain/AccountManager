@@ -1,1 +1,3 @@
-{"name" : "豆瓣", "sign" : "DB2", "website" : "www.douban.com", "tag" : ["hot", "interesting"], "login_name" : {"username" : "duxin", "mobile_phone" : "18665005621"}, "password" : {"login_password" : "123456", "pay_password" : "18665005621"}}
+{"website": "www.douban.com", "name": "\u8c46\u74e3", "sign": "DB", "tag": ["hot", "interesting"], "password": {"pay_password": "18665005621", "login_password": "123456"}, "login_name": {"username": "duxin", "mobile_phone": "18665005621"}}
+{"website": "www.douban.com", "name": "\u8c46\u74e3", "sign": "DB", "tag": ["hot", "interesting"], "password": {"pay_password": "18665005621", "login_password": "123456"}, "login_name": {"username": "duxin", "mobile_phone": "18665005621"}}
+{"website": "www.douban.com", "name": "\u8c46\u74e3", "sign": "DB2", "tag": ["hot", "interesting"], "password": {"pay_password": "18665005621", "login_password": "123456"}, "login_name": {"username": "duxin", "mobile_phone": "18665005621"}}

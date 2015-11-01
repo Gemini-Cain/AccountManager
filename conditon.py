@@ -1,12 +1,13 @@
-﻿#@Date 2015/09/15
+#@Date 2015/09/15
 #@Author Xin Du
 #coding:utf-8
 
+import account
 
-class Account(object):
+class Condition(Account):
 	"""账户信息"""
-	def __init__(self, name = "", sign = "", website = "", login_name = {}, password = {}, tag = []):
-		super(Account, self).__init__()
+	def __init__(self, name, sign, website, login_name = {}, password = {}, tag = []):
+		super(Condition, self).__init__(name, sign, website, login_name, password, tag)
 		self.__name = name
 		self.__sign = sign
 		self.__website = website
@@ -52,7 +53,7 @@ class Account(object):
 		return self.__tag
 
 	def set_tag(self, tag):
-		self.__tag = []
+		self.__tag.clear()
 		for item in tag:
 			self.__tag.append(item)
 
