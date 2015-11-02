@@ -2,17 +2,28 @@
 #@Author Xin Du
 #coding:utf-8
 
+import time
+import hashlib
 
 class Account(object):
 	"""账户信息"""
 	def __init__(self, name = "", sign = "", website = "", login_name = {}, password = {}, tag = []):
 		super(Account, self).__init__()
+		md5 = hashlib.md5()
+		md5.update(str(time.time()))
+		self.__id = md5.hexdigest()
 		self.__name = name
 		self.__sign = sign
 		self.__website = website
 		self.__login_name = login_name
 		self.__password = password
 		self.__tag = tag
+
+	def get_id(self):
+		return self.__id
+
+	def set_id(self, id):
+		self.__id = id
 
 	def get_name(self):
 		return self.__name
@@ -57,24 +68,25 @@ class Account(object):
 			self.__tag.append(item)
 
 	def show_account(self):
-		print "=" * 60
-		print "%-30s%30s" % ("Type", "Content")
-		print "-" * 60
-		print "%-30s%30s" % ("[Name]", self.__name.encode("gbk"))
-		print "%-30s%30s" % ("[Sign]", self.__sign)
-		print "%-30s%30s" % ("[Website]", self.__website)
+		print "=" * 62
+		print "%-30s%32s" % ("Type", "Content")
+		print "-" * 62
+		print "%-30s%32s" % ("[ID]", self.__id)
+		print "%-30s%32s" % ("[Name]", self.__name.encode("gbk"))
+		print "%-30s%32s" % ("[Sign]", self.__sign)
+		print "%-30s%32s" % ("[Website]", self.__website)
 		if self.__login_name is not None:
 			for key in self.__login_name.keys():
-				print "%-30s%30s" % ("[Login Name]." + key, self.__login_name[key])
+				print "%-30s%32s" % ("[Login Name]." + key, self.__login_name[key])
 		if self.__password is not None:
 			for key in self.__password.keys():
-				print "%-30s%30s" % ("[Password]." + key, self.__password[key])
+				print "%-30s%32s" % ("[Password]." + key, self.__password[key])
 		if self.__tag is not None:
 			for item in self.__tag:
-				print "%-30s%30s" % ("[Tag]", item)
+				print "%-30s%32s" % ("[Tag]", item)
 		#for item in self.__login_name:
 		#	print "[%s]: "
-		print "-" * 60
+		print "-" * 62
 
 def test():
 	account = Account(str("豆瓣").decode("utf-8"), "DB", "www.douban.com")

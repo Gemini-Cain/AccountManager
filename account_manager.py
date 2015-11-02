@@ -12,23 +12,14 @@ class AccountManager(object):
 		super(AccountManager, self).__init__()
 		self.handler = dbhandler.DBHandler("D:\\Code\\AccountManager\\test.txt")
 
-	def add_account(self, ac):
-		if not isinstance(ac, account.Account):
-			raise TypeError
-		condition = {}
-		condition["sign"] = ac.get_sign()
-
-		if self.handler.is_exist(condition):
-			raise KeyError
-		else:
-			condition["name"] = ac.get_name();
-			print condition["name"]
-			condition["website"] = ac.get_website();
-			condition["tag"] = ac.get_tag();
-			condition["login_name"] = ac.get_login_name();
-			condition["password"] = ac.get_password();
-			self.handler.insert(condition)
-
+	def add_account(self, account):
+		accounts = self.handler.getAccounts()
+		for item in accounts:
+			if item.get_sign() == account.get_sign():
+				#raise 
+				return
+		accounts.append(account)
+		self.handler.saveAccounts(accounts)
 
 	def search_account(self, condition):
 		for key in condition:
@@ -47,35 +38,88 @@ class AccountManager(object):
 	def change_account(self):
 		pass
 
+	def search(self, condition):
+		result = []
+		file = open(self.file)
+		while True:
+			line = file.readline()
+			if not line:
+				break
+			is_match = True
+			text = json.loads(line)
+			for key in condition:
+				if key in text:
+					if isinstance(text[key], (str, unicode)):
+						if text[key] == condition[key]:
+						 	pass
+						else:
+							is_match = False
+					elif isinstance(text[key], list):
+						for item in condition[key]:
+							if item in text[key]:
+								pass
+							else:
+								is_match = False
+								break
+					else:
+						raise TypeError
+				else:
+					raise KeyError
+			if is_match == True:
+				result.append(text)
+		return result
+
+	def insert(self, content):
+		file = open(self.file, "a")
+		line = json.dumps(content)
+		print line
+		file.write(line)
+
+	def is_exist(self, condition):
+		'判断key值数据是否已经存在'
+		file = open(self.file)
+		while True:
+			line = file.readline()
+			if not line:
+				break;
+			print line
+			text = json.loads(line)
+			print text
+			for key in condition:
+				if key in text and text[key] == condition[key]:
+					return True
+		
+		return False
+
 def test():
 	manager = AccountManager()
-	#ac = account.Account(str("豆瓣").decode("utf-8"), "DB2", "www.douban.com", {"username" : "duxin", "mobile_phone" : "18665005621"}, {"login_password" : "123456", "pay_password" : "18665005621"}, ["hot", "interesting"])
-	#manager.add_account(ac)
+	ac = account.Account(str("豆瓣").decode("utf-8"), "DB4", "www.douban.com", {"username" : "duxin", "mobile_phone" : "18665005621"}, {"login_password" : "123456", "pay_password" : "18665005621"}, ["hot", "interesting"])
+	manager.add_account(ac)
 
-	result = manager.search_account({"name":str("豆瓣").decode("utf-8")})
-	print str("----------根据名称查询----------").decode("utf-8")
-	for item in result:
-		item.show_account()
+	# result = manager.search_account({"name":str("豆瓣").decode("utf-8")})
+	# print str("----------根据名称查询----------").decode("utf-8")
+	# for item in result:
+	# 	item.show_account()
 
-	result = manager.search_account({"sign":"DB"})
-	print str("----------根据符号查询----------").decode("utf-8")
-	for item in result:
-		item.show_account()
+	# result = manager.search_account({"sign":"DB"})
+	# print str("----------根据符号查询----------").decode("utf-8")
+	# for item in result:
+	# 	item.show_account()
 
-	result = manager.search_account({"website":"www.douban.com"})
-	print str("-----------根据网站查询----------").decode("utf-8")
-	for item in result:
-		item.show_account()
+	# result = manager.search_account({"website":"www.douban.com"})
+	# print str("-----------根据网站查询----------").decode("utf-8")
+	# for item in result:
+	# 	item.show_account()
 
-	result = manager.search_account({"tag":["hot", "interesting"]})
-	print str("----------根据标签查询----------").decode("utf-8")
-	for item in result:
-		item.show_account()
+	# result = manager.search_account({"tag":["hot", "interesting"]})
+	# print str("----------根据标签查询----------").decode("utf-8")
+	# for item in result:
+	# 	item.show_account()
 
-	result = manager.search_account({"sign":"DB", "tag":["hot"]})
-	print str("----------复合条件查询----------").decode("utf-8")
-	for item in result:
-		item.show_account()
+	# result = manager.search_account({"sign":"DB", "tag":["hot"]})
+	# print str("----------复合条件查询----------").decode("utf-8")
+	# for item in result:
+	# 	item.show_account()
 
 if __name__ == '__main__':
 	test()

@@ -38,6 +38,11 @@ class DBHandler(object):
 		for line in self.__read_json_file__():
 			item = account.Account()
 			for key in line.keys():
+				if key == "id":
+					if isinstance(line[key], unicode):
+						item.set_id(line[key])
+					else:
+						raise TypeError
 				if key == "name":
 					if isinstance(line[key], unicode):
 						item.set_name(line[key])
@@ -75,9 +80,9 @@ class DBHandler(object):
 
 	def saveAccounts(self, accounts):
 		content = []
-		line = {}
 		for item in accounts:
 			line = {}
+			line["id"] = item.get_id();
 			line["name"] = item.get_name();
 			line["sign"] = item.get_sign();
 			line["website"] = item.get_website();
