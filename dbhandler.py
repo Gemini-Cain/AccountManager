@@ -18,7 +18,7 @@ class DBHandler(object):
 			line = file.readline()
 			if not line:
 				break
-			print line.decode("utf-8").encode("gbk")
+			print "%s:%s" %(__name__, line.decode("utf-8").encode("gbk"))
 			text = json.loads(line)
 			content.append(text)
 		return content
@@ -26,10 +26,9 @@ class DBHandler(object):
  	def __writeJsonFile__(self, content):
  		file = open(self.file_name, 'w')
 		for line in content:
-			print line
+			print "%s:%s" %(__name__, line)
 			text = json.dumps(line)
 			file.write(text + "\n")
-
 		file.close()
 
 

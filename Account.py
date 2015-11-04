@@ -8,8 +8,8 @@ import hashlib
 class Account(object):
 	"""账户信息"""
 	def __init__(self, id = "", name = "", sign = "", website = "", login_name = {}, password = {}, tag = []):
-		if id == "":		
-			super(Account, self).__init__()
+		super(Account, self).__init__()
+		if id == "":			
 			md5 = hashlib.md5()
 			md5.update(str(time.time()))
 			id = md5.hexdigest()

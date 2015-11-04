@@ -34,7 +34,8 @@ class AccountManager(object):
 				del condition[key]
 		result = []
 		for item in self.handler.search(condition):
-			result.append(account.Account(item["name"], item["sign"], item["website"], item["login_name"], item["password"], item["tag"]))
+			result.append(account.Account(item["name"], item["sign"], item["website"], item["login_name"], 
+				item["password"], item["tag"]))
 
 		return result
 
@@ -42,70 +43,43 @@ class AccountManager(object):
 		accounts = self.handler.getAccounts()
 		for item in accounts:
 			if item.get_id() == account.get_id():
-				item = account
+				print item.show_account()
+				accounts.remove(item)
+				accounts.append(account)
 		self.handler.saveAccounts(accounts)
 
-	def search(self, condition):
+	def search(self, conditions):
 		result = []
-		file = open(self.file)
-		while True:
-			line = file.readline()
-			if not line:
-				break
-			is_match = True
-			text = json.loads(line)
-			for key in condition:
-				if key in text:
-					if isinstance(text[key], (str, unicode)):
-						if text[key] == condition[key]:
-						 	pass
+		accounts = self.handler.getAccounts()
+
+		for item in accounts:
+			is_exist = True
+			for key in conditions.keys():
+				if isinstance(item[key], unicode) and item[key] == conditions[key]:
+					continue
+				elif isinstance(item[key], list):
+					for item in conditions[key]:
+						if item in item[key]:
+							continue
 						else:
-							is_match = False
-					elif isinstance(text[key], list):
-						for item in condition[key]:
-							if item in text[key]:
-								pass
-							else:
-								is_match = False
-								break
-					else:
-						raise TypeError
-				else:
-					raise KeyError
-			if is_match == True:
-				result.append(text)
+							
+			else:
+				raise KeyError
+		if is_match == True:
+			result.append(text)
 		return result
-
-	def insert(self, content):
-		file = open(self.file, "a")
-		line = json.dumps(content)
-		print line
-		file.write(line)
-
-	def is_exist(self, condition):
-		'判断key值数据是否已经存在'
-		file = open(self.file)
-		while True:
-			line = file.readline()
-			if not line:
-				break;
-			print line
-			text = json.loads(line)
-			print text
-			for key in condition:
-				if key in text and text[key] == condition[key]:
-					return True
-		
-		return False
 
 def test():
 	manager = AccountManager()
-	ac = account.Account(str("豆瓣").decode("utf-8"), "DB4", "www.douban.com", {"username" : "duxin", "mobile_phone" : "18665005621"}, {"login_password" : "123456", "pay_password" : "18665005621"}, ["hot", "interesting"])
+	ac = account.Account(name = str("豆瓣").decode("utf-8"), sign = "DB0", website = "www.douban.com", login_name = 
+		{"username" : "dd", "mobile_phone" : "18665005621"}, password = {"login_password" : "123456", "pay_password" : "18665005621"}, tag = ["hot", "interesting"])
 	manager.add_account(ac)
 
-	#manager.delete_account("9364cde347921fec50854d78f3449fc3")
+	#manager.delete_account("9364cde347921fec53854d78f3449fc3")
 
-	ac = account.Account(str("豆瓣").decode("utf-8"), "DB0", "www.douban.com", {"username" : "duxin", "mobile_phone" : "18665005621"}, {"login_password" : "123456", "pay_password" : "18665005621"}, ["hot", "interesting"])
+	ac = account.Account("9364cde347921fec53854d78f3449fc3", str("豆瓣").decode("utf-8"), "DB3", "www.douban.com", 
+		{"username" : "xx", "mobile_phone" : "18665005621"}, {"login_password" : "123456", 
+		"pay_password" : "18665005621"}, ["hot", "interesting"])
 	manager.change_account(ac)
 
 	# result = manager.search_account({"name":str("豆瓣").decode("utf-8")})
