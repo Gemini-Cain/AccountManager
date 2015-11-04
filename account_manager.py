@@ -21,6 +21,13 @@ class AccountManager(object):
 		accounts.append(account)
 		self.handler.saveAccounts(accounts)
 
+	def delete_account(self, id):
+		accounts = self.handler.getAccounts()
+		for item in accounts:
+			if item.get_id() == id:
+				accounts.remove(item)
+		self.handler.saveAccounts(accounts)
+
 	def search_account(self, condition):
 		for key in condition:
 			if condition[key] is None or condition[key] == [] or condition[key] == "":
@@ -31,12 +38,12 @@ class AccountManager(object):
 
 		return result
 
-
-	def delete_account(self):
-		pass
-
-	def change_account(self):
-		pass
+	def change_account(self, account):
+		accounts = self.handler.getAccounts()
+		for item in accounts:
+			if item.get_id() == account.get_id():
+				item = account
+		self.handler.saveAccounts(accounts)
 
 	def search(self, condition):
 		result = []
@@ -95,6 +102,11 @@ def test():
 	manager = AccountManager()
 	ac = account.Account(str("豆瓣").decode("utf-8"), "DB4", "www.douban.com", {"username" : "duxin", "mobile_phone" : "18665005621"}, {"login_password" : "123456", "pay_password" : "18665005621"}, ["hot", "interesting"])
 	manager.add_account(ac)
+
+	#manager.delete_account("9364cde347921fec50854d78f3449fc3")
+
+	ac = account.Account(str("豆瓣").decode("utf-8"), "DB0", "www.douban.com", {"username" : "duxin", "mobile_phone" : "18665005621"}, {"login_password" : "123456", "pay_password" : "18665005621"}, ["hot", "interesting"])
+	manager.change_account(ac)
 
 	# result = manager.search_account({"name":str("豆瓣").decode("utf-8")})
 	# print str("----------根据名称查询----------").decode("utf-8")

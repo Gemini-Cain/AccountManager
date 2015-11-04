@@ -7,11 +7,13 @@ import hashlib
 
 class Account(object):
 	"""账户信息"""
-	def __init__(self, name = "", sign = "", website = "", login_name = {}, password = {}, tag = []):
-		super(Account, self).__init__()
-		md5 = hashlib.md5()
-		md5.update(str(time.time()))
-		self.__id = md5.hexdigest()
+	def __init__(self, id = "", name = "", sign = "", website = "", login_name = {}, password = {}, tag = []):
+		if id == "":		
+			super(Account, self).__init__()
+			md5 = hashlib.md5()
+			md5.update(str(time.time()))
+			id = md5.hexdigest()
+		self.__id = id
 		self.__name = name
 		self.__sign = sign
 		self.__website = website
@@ -89,7 +91,7 @@ class Account(object):
 		print "-" * 62
 
 def test():
-	account = Account(str("豆瓣").decode("utf-8"), "DB", "www.douban.com")
+	account = Account(name = str("豆瓣").decode("utf-8"), sign = "DB", website = "www.douban.com")
 	login_name = {"username" : "duxin"}
 	account.set_login_name(login_name)
 	account.show_account()
